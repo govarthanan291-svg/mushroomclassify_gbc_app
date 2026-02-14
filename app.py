@@ -42,7 +42,7 @@ st.markdown("""
 }
 
 h1, h2, h3, h4, label, span, p {
-    color: #e6ffe6 !important;
+    color: #de126a !important;
 }
 
 .stButton > button {
