@@ -18,7 +18,7 @@ st.set_page_config(
 
 @st.cache_resource
 def load_model():
-    return joblib.load("mushroom_gb_model.pkl")
+    return joblib.load("models/mushroom_gb_model.pkl")
 
 model = load_model()
 
@@ -30,19 +30,19 @@ st.markdown("""
 <style>
 
 [data-testid="stAppViewContainer"] {
-    background-color: #9c260e;
+    background-color: #0b3d2e;
 }
 
 [data-testid="stHeader"] {
-    background-color: #2f28b5;
+    background-color: #0b3d2e;
 }
 
 [data-testid="stSidebar"] {
-    background-color: #2f28b5;
+    background-color: #0b3d2e;
 }
 
 h1, h2, h3, h4, label, span, p {
-    color: #de126a !important;
+    color: #e6ffe6 !important;
 }
 
 .stButton > button {
