@@ -29,7 +29,7 @@ st.set_page_config(
 st.markdown("""
 <style>
 body {
-    background-color: #0b3d2e;
+    background-color: #1ad69e;
 }
 .main {
     background-color: #0b3d2e;
