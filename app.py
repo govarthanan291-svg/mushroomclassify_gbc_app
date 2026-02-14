@@ -34,7 +34,7 @@ st.markdown("""
 }
 
 [data-testid="stHeader"] {
-    background-color: #0b3d2e;
+    background-color: #2f28b5;
 }
 
 [data-testid="stSidebar"] {
