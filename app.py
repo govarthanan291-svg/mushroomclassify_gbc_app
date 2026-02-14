@@ -23,44 +23,41 @@ def load_model():
 model = load_model()
 
 # ============================
-# ADVANCED PREMIUM CSS
+# PREMIUM CSS
 # ============================
 
 st.markdown("""
 <style>
 
 [data-testid="stAppViewContainer"] {
-background: linear-gradient(120deg, #0f0c29, #302b63, #24243e);
+background: linear-gradient(120deg,#141E30,#243B55);
 }
 
 .card {
 background: rgba(255,255,255,0.12);
-backdrop-filter: blur(12px);
-padding: 25px;
-border-radius: 20px;
-box-shadow: 0 0 25px rgba(0,255,255,0.4);
-margin-bottom:20px;
+padding:25px;
+border-radius:20px;
+box-shadow:0 0 25px rgba(0,255,255,0.4);
 }
 
-h1 {
-color:#00f7ff;
+h1{
+color:#00fff0;
 text-align:center;
-font-size:48px;
-text-shadow:0 0 15px #00f7ff;
+font-size:45px;
 }
 
-h3 {
-color:#ff61d2;
+h3{
+color:#ff9ff3;
 text-align:center;
 }
 
-label {
+label{
 color:white !important;
 font-weight:bold;
 }
 
-.stButton > button {
-background: linear-gradient(45deg,#00f260,#0575e6,#ff00cc);
+.stButton>button{
+background:linear-gradient(45deg,#00f260,#0575e6,#ff00cc);
 color:white;
 border-radius:30px;
 height:3.2em;
@@ -71,35 +68,26 @@ border:none;
 box-shadow:0 0 25px #00f260;
 }
 
-.stButton > button:hover {
-background: linear-gradient(45deg,#fc466b,#3f5efb);
-box-shadow:0 0 30px #fc466b;
+.stButton>button:hover{
+background:linear-gradient(45deg,#fc466b,#3f5efb);
 }
 
-input {
-border-radius:12px !important;
-}
-
-.success-box {
-background: linear-gradient(45deg,#00b09b,#96c93d);
-padding:20px;
+.success{
+background:linear-gradient(45deg,#11998e,#38ef7d);
+padding:18px;
 border-radius:15px;
+text-align:center;
 color:white;
 font-size:24px;
-text-align:center;
-font-weight:bold;
-box-shadow:0 0 20px #00b09b;
 }
 
-.danger-box {
-background: linear-gradient(45deg,#ff416c,#ff4b2b);
-padding:20px;
+.danger{
+background:linear-gradient(45deg,#ff416c,#ff4b2b);
+padding:18px;
 border-radius:15px;
+text-align:center;
 color:white;
 font-size:24px;
-text-align:center;
-font-weight:bold;
-box-shadow:0 0 20px #ff416c;
 }
 
 </style>
@@ -110,7 +98,7 @@ box-shadow:0 0 20px #ff416c;
 # ============================
 
 st.markdown("<h1>🍄 Mushroom AI Classifier</h1>", unsafe_allow_html=True)
-st.markdown("<h3>Smart Prediction System</h3>", unsafe_allow_html=True)
+st.markdown("<h3>Edible vs Poisonous Prediction</h3>", unsafe_allow_html=True)
 
 # ============================
 # Mappings
@@ -128,28 +116,29 @@ season_map = {"Spring":0,"Summer":1,"Autumn":2,"Winter":3}
 
 st.markdown("<div class='card'>", unsafe_allow_html=True)
 
-cap_diameter = st.number_input("Cap Diameter")
+cap_diameter = st.number_input("Cap Diameter (0 - 50)", 0.0, 50.0)
+stem_height = st.number_input("Stem Height (0 - 50)", 0.0, 50.0)
+stem_width = st.number_input("Stem Width (0 - 20)", 0.0, 20.0)
+
 cap_shape = st.selectbox("Cap Shape", cap_shape_map.keys())
 gill_attachment = st.selectbox("Gill Attachment", gill_attach_map.keys())
 gill_color = st.selectbox("Gill Color", gill_color_map.keys())
-stem_height = st.number_input("Stem Height")
-stem_width = st.number_input("Stem Width")
 stem_color = st.selectbox("Stem Color", stem_color_map.keys())
 season = st.selectbox("Season", season_map.keys())
 
 st.markdown("</div>", unsafe_allow_html=True)
 
 # ============================
-# Convert
+# Validate & Convert
 # ============================
 
 input_data = np.array([[
-cap_diameter,
+float(cap_diameter),
 cap_shape_map[cap_shape],
 gill_attach_map[gill_attachment],
 gill_color_map[gill_color],
-stem_height,
-stem_width,
+float(stem_height),
+float(stem_width),
 stem_color_map[stem_color],
 season_map[season]
 ]])
@@ -159,12 +148,16 @@ season_map[season]
 # ============================
 
 if st.button("🚀 Predict Mushroom Type"):
-    pred = model.predict(input_data)[0]
+    try:
+        pred = model.predict(input_data)[0]
 
-    if pred == 0:
-        st.markdown("<div class='success-box'>✅ EDIBLE MUSHROOM</div>", unsafe_allow_html=True)
-    else:
-        st.markdown("<div class='danger-box'>☠️ POISONOUS MUSHROOM</div>", unsafe_allow_html=True)
+        if pred == 0:
+            st.markdown("<div class='success'>✅ EDIBLE MUSHROOM</div>", unsafe_allow_html=True)
+        else:
+            st.markdown("<div class='danger'>☠️ POISONOUS MUSHROOM</div>", unsafe_allow_html=True)
+
+    except:
+        st.error("⚠️ Please enter valid values in all fields")
 
 # ============================
 # Footer
