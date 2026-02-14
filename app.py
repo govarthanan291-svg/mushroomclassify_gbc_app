@@ -8,7 +8,7 @@ import joblib
 
 @st.cache_resource
 def load_model():
-    return joblib.load("models/mushroom_gb_model.pkl")
+    return joblib.load("mushroom_gb_model.pkl")
 
 model = load_model()
 
