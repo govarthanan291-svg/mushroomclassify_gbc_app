@@ -38,7 +38,7 @@ st.markdown("""
 }
 
 [data-testid="stSidebar"] {
-    background-color: #0b3d2e;
+    background-color: #2f28b5;
 }
 
 h1, h2, h3, h4, label, span, p {
